@@ -1,78 +1,83 @@
-<canvas id="gc" width="30" height="30"></canvas>
+<canvas id="gc" width="400" height="400"></canvas>
 <script>
-    window.onload = function() {
-        canv = document.getElementById("gc");
-        ctx = canv.getContext("2d");
-        document.addEventListener("keydown", keyPush);
-        setInterval(game, 1000 / 15);
+  window.onload = function () {
+    canv = document.getElementById("gc");
+    ctx = canv.getContext("2d");
+    document.addEventListener("keydown", keyPush);
+    setInterval(game, 1000 / 15);
+  };
+  playerPosX = playerPosY = 10;
+  gridSize = tileCount = 20;
+  applePosX = applePosY = 15;
+  xVelocity = yVelocity = 0;
+  trail = [];
+  tail = 5;
+
+  function game() {
+    playerPosX += xVelocity;
+    playerPosY += yVelocity;
+    if (playerPosX < 0) {
+      playerPosX = tileCount - 1;
     }
-    playerposx = playerposy = 10;
-    gs = tc = 20;
-    appleposx = appleposy = 15;
-    xvelocity = yvelocity = 0;
-    trail = [];
-    tail = 5;
+    if (playerPosX > tileCount - 1) {
+      playerPosX = 0;
+    }
+    if (playerPosY < 0) {
+      playerPosY = tileCount - 1;
+    }
+    if (playerPosY > tileCount - 1) {
+      playerPosY = 0;
+    }
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, canv.width, canv.height);
 
-    function game() {
-        playerposx += xvelocity;
-        playerposy += yvelocity;
-        if (playerposx < 0) {
-            playerposx = tc - 1;
-        }
-        if (playerposx > tc - 1) {
-            playerposx = 0;
-        }
-        if (playerposy < 0) {
-            playerposy = tc - 1;
-        }
-        if (playerposy > tc - 1) {
-            playerposy = 0;
-        }
-        ctx.fillStyle = "black";
-        ctx.fillRect(0, 0, canv.width, canv.height);
-
-        ctx.fillStyle = "lime";
-        for (var i = 0; i < trail.length; i++) {
-            ctx.fillRect(trail[i].x * gs, trail[i].y * gs, gs - 2, gs - 2);
-            if (trail[i].x == playerposx && trail[i].y == playerposy) {
-                tail = 5;
-            }
-        }
-        trail.push({
-            x: playerposx,
-            y: playerposy
-        });
-        while (trail.length > tail) {
-            trail.shift();
-        }
-
-        if (appleposx == playerposx && appleposy == playerposy) {
-            tail++;
-            appleposx = Math.floor(Math.random() * tc);
-            appleposy = Math.floor(Math.random() * tc);
-        }
-        ctx.fillStyle = "red";
-        ctx.fillRect(appleposx * gs, appleposy * gs, gs - 2, gs - 2);
+    ctx.fillStyle = "lime";
+    for (var i = 0; i < trail.length; i++) {
+      ctx.fillRect(
+        trail[i].x * gs,
+        trail[i].y * gs,
+        gridSize - 2,
+        gridSize - 2
+      );
+      if (trail[i].x == playerPosX && trail[i].y == playerPosY) {
+        tail = 5;
+      }
+    }
+    trail.push({
+      x: playerPosX,
+      y: playerPosY,
+    });
+    while (trail.length > tail) {
+      trail.shift();
     }
 
-    function keyPush(evt) {
-        switch (evt.keyCode) {
-            case 37:
-                xvelocity = -1;
-                yvelocity = 0;
-                break;
-            case 38:
-                xvelocity = 0;
-                yvelocity = -1;
-                break;
-            case 39:
-                xvelocity = 1;
-                yvelocity = 0;
-                break;
-            case 40:
-                xvelocity = 0;
-                yvelocity = 1;
-                break;
-        }
+    if (applePosX == playerPosX && applePosY == playerPosY) {
+      tail++;
+      applePosX = Math.floor(Math.random() * tc);
+      applePosY = Math.floor(Math.random() * tc);
     }
+    ctx.fillStyle = "red";
+    ctx.fillRect(applePosX * gs, applePosY * gs, gridSize - 2, gridSize - 2);
+  }
+
+  function keyPush(evt) {
+    switch (evt.keyCode) {
+      case 37:
+        xVelocity = -1;
+        yVelocity = 0;
+        break;
+      case 38:
+        xVelocity = 0;
+        yVelocity = -1;
+        break;
+      case 39:
+        xVelocity = 1;
+        yVelocity = 0;
+        break;
+      case 40:
+        xVelocity = 0;
+        yVelocity = 1;
+        break;
+    }
+  }
 </script>
