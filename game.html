@@ -34,8 +34,8 @@
     ctx.fillStyle = "lime";
     for (var i = 0; i < trail.length; i++) {
       ctx.fillRect(
-        trail[i].x * gs,
-        trail[i].y * gs,
+        trail[i].x * gridSize,
+        trail[i].y * gridSize,
         gridSize - 2,
         gridSize - 2
       );
@@ -53,11 +53,16 @@
 
     if (applePosX == playerPosX && applePosY == playerPosY) {
       tail++;
-      applePosX = Math.floor(Math.random() * tc);
-      applePosY = Math.floor(Math.random() * tc);
+      applePosX = Math.floor(Math.random() * tileCount);
+      applePosY = Math.floor(Math.random() * tileCount);
     }
     ctx.fillStyle = "red";
-    ctx.fillRect(applePosX * gs, applePosY * gs, gridSize - 2, gridSize - 2);
+    ctx.fillRect(
+      applePosX * gridSize,
+      applePosY * gridSize,
+      gridSize - 2,
+      gridSize - 2
+    );
   }
 
   function keyPush(evt) {
