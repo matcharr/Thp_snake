@@ -1,4 +1,4 @@
 # Thp_snake
 
-#ressource :
+# ressource :
 [Youtube explain](https://www.youtube.com/watch?v=xGmXxpIj6vs)
