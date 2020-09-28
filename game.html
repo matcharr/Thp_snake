@@ -1,4 +1,4 @@
-<canvas id="gc" width="400" height="400"></canvas>
+<canvas id="gc" width="30" height="30"></canvas>
 <script>
     window.onload = function() {
         canv = document.getElementById("gc");
@@ -9,13 +9,13 @@
     playerposx = playerposy = 10;
     gs = tc = 20;
     appleposx = appleposy = 15;
-    xv = yv = 0;
+    xvelocity = yvelocity = 0;
     trail = [];
     tail = 5;
 
     function game() {
-        playerposx += xv;
-        playerposy += yv;
+        playerposx += xvelocity;
+        playerposy += yvelocity;
         if (playerposx < 0) {
             playerposx = tc - 1;
         }
@@ -58,20 +58,20 @@
     function keyPush(evt) {
         switch (evt.keyCode) {
             case 37:
-                xv = -1;
-                yv = 0;
+                xvelocity = -1;
+                yvelocity = 0;
                 break;
             case 38:
-                xv = 0;
-                yv = -1;
+                xvelocity = 0;
+                yvelocity = -1;
                 break;
             case 39:
-                xv = 1;
-                yv = 0;
+                xvelocity = 1;
+                yvelocity = 0;
                 break;
             case 40:
-                xv = 0;
-                yv = 1;
+                xvelocity = 0;
+                yvelocity = 1;
                 break;
         }
     }
